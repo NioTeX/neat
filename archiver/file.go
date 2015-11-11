@@ -65,8 +65,17 @@ func (a *File) Archive(ctx neat.Context) error {
 
 	// Save the settings
 	name := a.makePath("config")
+	var dir = path.Dir(name)
+	if _, err := os.Stat(dir); err != nil {
+		if os.IsNotExist(err) {
+			os.MkdirAll(dir, 0777)
+		} else {
+			// other error
+		}
+	}
 	f, err := os.Create(name)
 	if err != nil {
+		panic(err)
 		return err
 	}
 	e := json.NewEncoder(f)
