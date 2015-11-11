@@ -68,7 +68,7 @@ func (a *File) Archive(ctx neat.Context) error {
 	var dir = path.Dir(name)
 	if _, err := os.Stat(dir); err != nil {
 		if os.IsNotExist(err) {
-			os.MkdirAll(dir, 0777)
+			os.MkdirAll(dir, os.ModePerm)
 		} else {
 			// other error
 		}

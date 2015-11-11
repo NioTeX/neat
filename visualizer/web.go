@@ -108,14 +108,14 @@ func (d *Web) Reset() {
 func (v *Web) ensurePath() error {
 	p := v.WebPath()
 	if _, err := os.Stat(p); os.IsNotExist(err) {
-		if err = os.Mkdir(p, os.ModePerm); err != nil {
+		if err = os.MkdirAll(p, os.ModePerm); err != nil {
 			return fmt.Errorf("Could not create web path %s: %v", p, err)
 		}
 	}
 	if v.useTrials {
 		p = path.Join(p, strconv.Itoa(v.trialNum))
 		if _, err := os.Stat(p); os.IsNotExist(err) {
-			if err = os.Mkdir(p, os.ModePerm); err != nil {
+			if err = os.MkdirAll(p, os.ModePerm); err != nil {
 				return fmt.Errorf("Could not create web path %s: %v", p, err)
 			}
 		}
