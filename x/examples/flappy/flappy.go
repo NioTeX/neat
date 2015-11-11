@@ -82,14 +82,14 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 			break
 		}
 		f.Next(outputs[0])
-		var asd bool
+		var asd string
 		if outputs[0] >= 0.5 {
-			asd = true
+			asd = " Clicked!!"
 		} else {
-			asd = false
+			asd = ""
 		}
 		if(e.show) {
-			fmt.Println(f.obs.Y, " ", asd, "", f.bird.posX)
+			fmt.Println("obsY: ", f.obs.Y, "[", f.obs.bottomX, " ", f.bird.posX, " ", f.obs.topX, "]", asd)
 		}
 	}
 
@@ -195,7 +195,7 @@ func (f *Flappy) ObstacleNext() {
 		f.obs.Y = f.screen.y
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
 		f.obs.topX = r.Intn(7)
-		f.obs.bottomX = f.obs.bottomX + 2
+		f.obs.bottomX = f.obs.topX + 2
 	} else {
 		f.obs.Y--
 	}
