@@ -266,19 +266,19 @@ func visualizeFitness(v *Web) error {
 	fitness_range := fitness_max - fitness_min
 
 	img.Path("M 40 40 L 540 40", `id="fitness1" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%2f", fitness_range+fitness_min), "#fitness1", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="90%"`)
+	img.Textpath(fmt.Sprintf("%2f", fitness_range+fitness_min), "#fitness1", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="90%"`)
 
 	img.Path("M 40 100 L 540 100", `id="fitness2" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%2f", (fitness_range*0.8+fitness_min)), "#fitness2", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="70%"`)
+	img.Textpath(fmt.Sprintf("%2f", (fitness_range*0.8+fitness_min)), "#fitness2", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="70%"`)
 
 	img.Path("M 40 160 L 540 160", `id="fitness3" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%2f", (fitness_range*0.6+fitness_min)), "#fitness3", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="50%"`)
+	img.Textpath(fmt.Sprintf("%2f", (fitness_range*0.6+fitness_min)), "#fitness3", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="50%"`)
 
 	img.Path("M 40 220 L 540 220", `id="fitness4" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%2f", (fitness_range*0.4+fitness_min)), "#fitness4", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="30%"`)
+	img.Textpath(fmt.Sprintf("%2f", (fitness_range*0.4+fitness_min)), "#fitness4", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="30%"`)
 
 	img.Path("M 40 280 L 540 280", `id="fitness5" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%2f", (fitness_range*0.2+fitness_min)), "#fitness5", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="10%"`)
+	img.Textpath(fmt.Sprintf("%2f", (fitness_range*0.2+fitness_min)), "#fitness5", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="10%"`)
 
 	img.Textpath(fmt.Sprintf("%2f", (fitness_min)), "#generation", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="0%"`)
 
