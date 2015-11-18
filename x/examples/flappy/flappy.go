@@ -30,8 +30,8 @@ import (
 	"flag"
 	"log"
 	"fmt"
-	"time"
-	"math/rand"
+	//"time"
+	//"math/rand"
 
 	"github.com/rqme/neat"
 	"github.com/rqme/neat/result"
@@ -64,6 +64,7 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 
 	f := Flappy{}
 	f.Alive = true
+	f.Fitness = 1
 	f.screen.x = 10
 	f.screen.y = 10
 	f.bird.velocity = 1
@@ -71,7 +72,7 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 	f.bird.posY = 2
 	f.obs.Y = 12
 	f.obs.bottomX = 6
-	f.obs.topX = 4
+	f.obs.topX = 3
 
 	in := make([]float64, f.screen.x * f.screen.y)
 
@@ -159,7 +160,7 @@ func (f *Flappy) Export() (out []float64) {
 			if f.bird.posX == x && f.bird.posY == y {
 				out[pos] = 1.0
 			} else if f.obs.Y == y && (x <= f.obs.topX || x >= f.obs.bottomX) {
-				out[pos] = 0.5
+				out[pos] = -1.0
 			}
 		}
 	}
@@ -168,15 +169,12 @@ func (f *Flappy) Export() (out []float64) {
 }
 
 func (f *Flappy) Next(in float64) {
+	f.BirdNext()
 	if in >= 0.5 {
 		f.bird.velocity = 3
 	}
-
-	f.BirdNext()
 	f.ObstacleNext()
 	f.CheckAlive()
-
-	f.Fitness++
 }
 
 func (f *Flappy) BirdNext() {
@@ -193,8 +191,9 @@ func (f *Flappy) BirdNext() {
 func (f *Flappy) ObstacleNext() {
 	if f.obs.Y < 0 {
 		f.obs.Y = f.screen.y
-		r := rand.New(rand.NewSource(time.Now().UnixNano()))
-		f.obs.topX = r.Intn(7)
+		//r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		f.obs.topX = (f.obs.topX + 2) % 6
+		//f.obs.topX = r.Intn(6)
 		f.obs.bottomX = f.obs.topX + 2
 	} else {
 		f.obs.Y--
@@ -207,8 +206,10 @@ func (f *Flappy) CheckAlive() {
 	}
 
 	if f.bird.posY == f.obs.Y {
-		if f.bird.posX > f.obs.bottomX || f.bird.posX < f.obs.topX {
+		if f.bird.posX >= f.obs.bottomX || f.bird.posX <= f.obs.topX {
 			f.Alive = false
 		}
+	} else if f.bird.posY == f.obs.Y - 1 {
+		f.Fitness++;
 	}
 }

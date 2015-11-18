@@ -1,7 +1,7 @@
 {
   "ExperimentName": "FLAPPY",
   "PopulationSize": 150,
-  "Iterations": 50,
+  "Iterations": 20,
   "NumInputs": 100,
   "NumOutputs": 1,
   "FitnessType": 1,
