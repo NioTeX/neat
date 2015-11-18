@@ -30,8 +30,8 @@ import (
 	"flag"
 	"log"
 	"fmt"
-	//"time"
-	//"math/rand"
+	"time"
+	"math/rand"
 
 	"github.com/rqme/neat"
 	"github.com/rqme/neat/result"
@@ -76,7 +76,7 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 
 	in := make([]float64, f.screen.x * f.screen.y)
 
-	for f.Alive && f.Fitness < 500 {
+	for f.Alive && f.Fitness < 100 {
 		in = f.Export()
 		outputs, err := p.Activate(in)
 		if err != nil {
@@ -95,7 +95,7 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 	}
 
 	// Calculate the result
-	if f.Fitness > 499 {
+	if f.Fitness > 99 {
 		stop = true
 	}
 	r = result.New(p.ID(), f.Fitness, err, stop)
@@ -191,17 +191,16 @@ func (f *Flappy) BirdNext() {
 func (f *Flappy) ObstacleNext() {
 	if f.obs.Y < 0 {
 		f.obs.Y = f.screen.y
-		//r := rand.New(rand.NewSource(time.Now().UnixNano()))
-		f.obs.topX = (f.obs.topX + 2) % 6
-		//f.obs.topX = r.Intn(6)
-		f.obs.bottomX = f.obs.topX + 2
+		r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		f.obs.topX = r.Intn(6)
+		f.obs.bottomX = f.obs.topX + 3
 	} else {
 		f.obs.Y--
 	}
 }
 
 func (f *Flappy) CheckAlive() {
-	if f.bird.posX > f.screen.x {
+	if f.bird.posX >= f.screen.x {
 		f.Alive = false
 	}
 
