@@ -61,44 +61,57 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 	// Run experiment
 	var err error
 	stop := false
+	var worstFitt float64;
+	worstFitt = 101;
 
-	f := Flappy{}
-	f.Alive = true
-	f.Fitness = 1
-	f.screen.x = 10
-	f.screen.y = 10
-	f.bird.velocity = 1
-	f.bird.posX = 4
-	f.bird.posY = 2
-	f.obs.Y = 12
-	f.obs.bottomX = 6
-	f.obs.topX = 3
+	for tries := 0; tries < 10; tries ++ {
+		f := Flappy{}
+		f.Alive = true
+		f.Fitness = 0
+		f.screen.x = 10
+		f.screen.y = 10
+		f.bird.velocity = 1
+		f.bird.posX = 4
+		f.bird.posY = 2
+		f.obs.Y = 12
+		f.obs.bottomX = 6
+		f.obs.topX = 3
 
-	in := make([]float64, f.screen.x * f.screen.y)
+		in := make([]float64, f.screen.x * f.screen.y)
 
-	for f.Alive && f.Fitness < 100 {
-		in = f.Export()
-		outputs, err := p.Activate(in)
-		if err != nil {
-			break
+if e.show {
+	fmt.Println("")
+	fmt.Println("try #", tries)
+}
+
+		for f.Alive && f.Fitness < 100 {
+			in = f.Export()
+			outputs, err := p.Activate(in)
+			if err != nil {
+				break
+			}
+			f.Next(outputs[0])
+			var asd string
+			if outputs[0] >= 0.5 {
+				asd = " Clicked!!"
+			} else {
+				asd = ""
+			}
+			if(e.show) {
+				fmt.Println("obsY: ", f.obs.Y, "[", f.obs.bottomX, " ", f.bird.posX, " ", f.obs.topX, "]", asd, "Fitness: ", f.Fitness)
+			}
 		}
-		f.Next(outputs[0])
-		var asd string
-		if outputs[0] >= 0.5 {
-			asd = " Clicked!!"
-		} else {
-			asd = ""
-		}
-		if(e.show) {
-			fmt.Println("obsY: ", f.obs.Y, "[", f.obs.bottomX, " ", f.bird.posX, " ", f.obs.topX, "]", asd)
+
+		if f.Fitness < worstFitt {
+			worstFitt = f.Fitness
 		}
 	}
 
 	// Calculate the result
-	if f.Fitness > 99 {
+	if worstFitt > 99 {
 		stop = true
 	}
-	r = result.New(p.ID(), f.Fitness, err, stop)
+	r = result.New(p.ID(), worstFitt, err, stop)
 	return
 }
 

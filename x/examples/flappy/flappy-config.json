@@ -1,6 +1,6 @@
 {
   "ExperimentName": "FLAPPY",
-  "PopulationSize": 150,
+  "PopulationSize": 1500,
   "Iterations": 20,
   "NumInputs": 100,
   "NumOutputs": 1,
