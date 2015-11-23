@@ -346,19 +346,19 @@ func visualizeComplexity(v *Web) error {
 	complexity_range := complexity_max - complexity_min
 
 	img.Path("M 40 40 L 540 40", `id="complexity1" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%v", complexity_range+complexity_min), "#complexity1", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="90%"`)
+	img.Textpath(fmt.Sprintf("%v", complexity_range+complexity_min), "#complexity1", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="90%"`)
 
 	img.Path("M 40 100 L 540 100", `id="complexity2" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%v", int(complexity_range*0.8+complexity_min)), "#complexity2", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="70%"`)
+	img.Textpath(fmt.Sprintf("%v", int(complexity_range*0.8+complexity_min)), "#complexity2", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="70%"`)
 
 	img.Path("M 40 160 L 540 160", `id="complexity3" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%v", int(complexity_range*0.6+complexity_min)), "#complexity3", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="50%"`)
+	img.Textpath(fmt.Sprintf("%v", int(complexity_range*0.6+complexity_min)), "#complexity3", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="50%"`)
 
 	img.Path("M 40 220 L 540 220", `id="complexity4" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%v", int(complexity_range*0.4+complexity_min)), "#complexity4", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="30%"`)
+	img.Textpath(fmt.Sprintf("%v", int(complexity_range*0.4+complexity_min)), "#complexity4", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="30%"`)
 
 	img.Path("M 40 280 L 540 280", `id="complexity5" stroke-width="0.5" stroke="green" fill="none"`)
-	img.Textpath(fmt.Sprintf("%v", int(complexity_range*0.2+complexity_min)), "#complexity5", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8", startOffset="10%"`)
+	img.Textpath(fmt.Sprintf("%v", int(complexity_range*0.2+complexity_min)), "#complexity5", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="10%"`)
 
 	img.Textpath(fmt.Sprintf("%v", int(complexity_min)), "#generation", `fill="green" fill-opacity="1.0" font-size="9" font-family="Verdana" dy="8" startOffset="0%"`)
 
@@ -522,7 +522,7 @@ func visualizeBest(v *Web) error {
 		cx := int(neuron.X*w) + 15
 		cy := int((1.0-neuron.Y)*h) + 15
 		img.Circle(cx, cy, 10, fmt.Sprintf(`fill="%s" stroke="black" stroke-width="1"`, node_color))
-		img.Text(cx-3, cy+3, fmt.Sprintf(`%d`, i), fmt.Sprintf(`font-size="5pt" font-color=%s`, font_color))
+		img.Text(cx-3, cy+3, fmt.Sprintf(`%d`, i), fmt.Sprintf(`font-size="5pt" font-color="%s"`, font_color))
 	}
 
 	// Draw synapses
