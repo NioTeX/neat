@@ -1,12 +1,12 @@
 {
   "ExperimentName": "FLAPPY",
   "PopulationSize": 1500,
-  "Iterations": 20,
+  "Iterations": 500,
   "NumInputs": 100,
   "NumOutputs": 1,
   "FitnessType": 1,
 
-  "TargetNumberOfSpecies": 15,
+  "TargetNumberOfSpecies": 150,
   "CompatibilityModifier": 0.3,
   "CompatibilityThreshold": 3.0,
 

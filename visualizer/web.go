@@ -522,7 +522,7 @@ func visualizeBest(v *Web) error {
 		cx := int(neuron.X*w) + 15
 		cy := int((1.0-neuron.Y)*h) + 15
 		img.Circle(cx, cy, 10, fmt.Sprintf(`fill="%s" stroke="black" stroke-width="1"`, node_color))
-		img.Text(cx-3, cy+3, fmt.Sprintf(`%d`, i), fmt.Sprintf(`font-size="5pt" font-color="%s"`, font_color))
+		img.Text(cx-3, cy+3, fmt.Sprintf(`%d`, i+1), fmt.Sprintf(`font-size="5pt" fill="%s"`, font_color))
 	}
 
 	// Draw synapses

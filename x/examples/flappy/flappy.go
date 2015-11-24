@@ -61,7 +61,7 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 	// Run experiment
 	var err error
 	stop := false
-	var worstFitt float64;
+	var worstFitt, sumFitt float64;
 	worstFitt = 101;
 
 	for tries := 0; tries < 10; tries ++ {
@@ -79,12 +79,12 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 
 		in := make([]float64, f.screen.x * f.screen.y)
 
-if e.show {
-	fmt.Println("")
-	fmt.Println("try #", tries)
-}
+		if e.show {
+			fmt.Println("")
+			fmt.Println("try #", tries)
+		}
 
-		for f.Alive && f.Fitness < 100 {
+		for f.Alive && f.Fitness < 10000 {
 			in = f.Export()
 			outputs, err := p.Activate(in)
 			if err != nil {
@@ -105,13 +105,19 @@ if e.show {
 		if f.Fitness < worstFitt {
 			worstFitt = f.Fitness
 		}
+		sumFitt += f.Fitness
 	}
 
 	// Calculate the result
-	if worstFitt > 99 {
+	if worstFitt > 9999 {
 		stop = true
 	}
-	r = result.New(p.ID(), worstFitt, err, stop)
+
+	sumFitt /= 10
+
+	sumFitt += worstFitt*worstFitt
+
+	r = result.New(p.ID(), sumFitt, err, stop)
 	return
 }
 
