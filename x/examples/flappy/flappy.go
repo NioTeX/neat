@@ -64,6 +64,10 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 	var worstFitt, sumFitt float64;
 	worstFitt = 101;
 
+	if e.show {
+		fmt.Println("Flappy Evaluation for genome ", p.ID(), "\n")
+	}
+
 	for tries := 0; tries < 10; tries ++ {
 		f := Flappy{}
 		f.Alive = true
@@ -84,21 +88,21 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 			fmt.Println("try #", tries)
 		}
 
-		for f.Alive && f.Fitness < 10000 {
+		for f.Alive && f.Fitness < 100 {
 			in = f.Export()
 			outputs, err := p.Activate(in)
 			if err != nil {
 				break
 			}
 			f.Next(outputs[0])
-			var asd string
+			//var asd string
 			if outputs[0] >= 0.5 {
-				asd = " Clicked!!"
+				//asd = " Clicked!!"
 			} else {
-				asd = ""
+				//asd = ""
 			}
 			if(e.show) {
-				fmt.Println("obsY: ", f.obs.Y, "[", f.obs.bottomX, " ", f.bird.posX, " ", f.obs.topX, "]", asd, "Fitness: ", f.Fitness)
+				//fmt.Println("obsY: ", f.obs.Y, "[", f.obs.bottomX, " ", f.bird.posX, " ", f.obs.topX, "]", asd, "Fitness: ", f.Fitness)
 			}
 		}
 
@@ -109,7 +113,7 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 	}
 
 	// Calculate the result
-	if worstFitt > 9999 {
+	if worstFitt > 99 {
 		stop = true
 	}
 

@@ -62,7 +62,6 @@ func (a *File) makePath(s string) string {
 }
 
 func (a *File) Archive(ctx neat.Context) error {
-
 	// Save the settings
 	name := a.makePath("config")
 	var dir = path.Dir(name)
@@ -78,11 +77,12 @@ func (a *File) Archive(ctx neat.Context) error {
 		panic(err)
 		return err
 	}
-	e := json.NewEncoder(f)
-	if err = e.Encode(ctx); err != nil {
+	b, err := json.MarshalIndent(ctx, "", " ")
+	if err != nil {
 		f.Close()
 		return err
 	}
+	f.Write(b)
 	f.Close()
 
 	// Save the state values
@@ -92,11 +92,12 @@ func (a *File) Archive(ctx neat.Context) error {
 		if err != nil {
 			return err
 		}
-		e = json.NewEncoder(f)
-		if err = e.Encode(v); err != nil {
+		b, err := json.MarshalIndent(v, "", "  ")
+		if err != nil {
 			f.Close()
 			return err
 		}
+		f.Write(b)
 		f.Close()
 	}
 	return nil

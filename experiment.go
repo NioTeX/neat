@@ -109,11 +109,11 @@ func Run(e *Experiment) error {
 	}
 
 	// Take one last archive and return
-	if err := e.ctx.Archiver().Archive(e.ctx); err != nil {
-		return fmt.Errorf("Could not take last archive of experiment: %v", err)
-	}
 	if err := e.ctx.Visualizer().Visualize(e.population); err != nil {
 		return fmt.Errorf("Could not visualize the experiment for the last time: %v", err)
+	}
+	if err := e.ctx.Archiver().Archive(e.ctx); err != nil {
+		return fmt.Errorf("Could not take last archive of experiment: %v", err)
 	}
 	return nil
 }
