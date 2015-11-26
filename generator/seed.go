@@ -63,15 +63,15 @@ func createSeed(ctx neat.Context, cfg ClassicSettings) (adam neat.Genome) {
 	}
 
 	rng := rand.New(rand.NewSource(rand.Int63()))
-	adam.Conns = make(map[int]neat.Connection, (1+inputs)*outputs)
-	for i := 0; i < 1+inputs; i++ {
-		for j := 0; j < outputs; j++ {
-			w := (rng.Float64()*2.0 - 1.0) * cfg.WeightRange()
-			conn := neat.Connection{Source: nodes[i].Innovation, Target: nodes[j+1+inputs].Innovation, Enabled: true, Weight: w}
-			conn.Innovation = ctx.Innovation(neat.ConnInnovation, conn.Key())
-			adam.Conns[conn.Innovation] = conn
-		}
-	}
+	// adam.Conns = make(map[int]neat.Connection, (1+inputs)*outputs)
+	// for i := 0; i < 1+inputs; i++ {
+	// 	for j := 0; j < outputs; j++ {
+	// 		w := (rng.Float64()*2.0 - 1.0) * cfg.WeightRange()
+	// 		conn := neat.Connection{Source: nodes[i].Innovation, Target: nodes[j+1+inputs].Innovation, Enabled: true, Weight: w}
+	// 		conn.Innovation = ctx.Innovation(neat.ConnInnovation, conn.Key())
+	// 		adam.Conns[conn.Innovation] = conn
+	// 	}
+	// }
 
 	ts := cfg.Traits()
 	adam.Traits = make([]float64, len(ts))
