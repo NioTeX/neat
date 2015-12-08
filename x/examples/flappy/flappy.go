@@ -88,7 +88,7 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 			fmt.Println("try #", tries)
 		}
 
-		for f.Alive && f.Fitness < 100 {
+		for f.Alive && f.Fitness < 10 {
 			in = f.Export()
 			outputs, err := p.Activate(in)
 			if err != nil {
@@ -113,13 +113,13 @@ func (e Evaluator) Evaluate(p neat.Phenome) (r neat.Result) {
 	}
 
 	// Calculate the result
-	if worstFitt > 99 {
+	if worstFitt > 9 {
 		stop = true
 	}
 
 	sumFitt /= 10
 
-	sumFitt += worstFitt*worstFitt
+	sumFitt += worstFitt
 
 	r = result.New(p.ID(), sumFitt, err, stop)
 	return
@@ -201,8 +201,8 @@ func (f *Flappy) Next(in float64) {
 }
 
 func (f *Flappy) BirdNext() {
-	if f.bird.velocity > 0 {
-		if f.bird.posX > 1 {
+	if f.bird.velocity > -1 {
+		if f.bird.posX > 0 {
 			f.bird.posX--
 		}
 		f.bird.velocity--
@@ -221,6 +221,13 @@ func (f *Flappy) ObstacleNext() {
 		f.obs.Y--
 	}
 }
+
+// var randomSeed float64
+// func SeededRandom() float64 {
+// 	var x = math.Sin(randomSeed) * 413.0;
+// 	seed++
+// 	return x - math.Floor(x);
+// }
 
 func (f *Flappy) CheckAlive() {
 	if f.bird.posX >= f.screen.x {
